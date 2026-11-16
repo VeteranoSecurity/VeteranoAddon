@@ -1,3 +1,8 @@
+// Polyfill para compatibilidade com versões do Node.js em VMs Linux
+if (typeof globalThis.File === 'undefined') {
+  globalThis.File = class File {};
+}
+
 require('dotenv').config();
 const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
 const manifest = require('./src/manifest');

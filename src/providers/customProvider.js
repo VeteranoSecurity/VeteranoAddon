@@ -1,4 +1,5 @@
 const cheerio = require('cheerio');
+const axios = require('axios');
 const { extrairMagnetsParaStremio } = require('./pageExtractor');
 
 /**
@@ -149,20 +150,16 @@ async function buscarPostsNoSite(termo, baseUrl) {
     const searchUrl = `${baseUrl.replace(/\/$/, '')}/?s=${encodeURIComponent(termo)}`;
     console.log(`[Provider] Buscando página de resultados: ${searchUrl}`);
 
-    const response = await fetch(searchUrl, {
+    const response = await axios.get(searchUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7'
-      }
+      },
+      timeout: 10000
     });
 
-    if (!response.ok) {
-      console.warn(`[Provider] Falha na busca: HTTP ${response.status}`);
-      return [];
-    }
-
-    const html = await response.text();
+    const html = typeof response.data === 'string' ? response.data : '';
     const $ = cheerio.load(html);
     const posts = [];
 
