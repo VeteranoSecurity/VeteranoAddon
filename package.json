@@ -1,0 +1,23 @@
+{
+  "name": "stremio-addon-template",
+  "version": "1.0.0",
+  "description": "Template base para desenvolvimento de Addon do Stremio",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "stremio",
+    "addon",
+    "sdk"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cheerio": "^1.2.0",
+    "dotenv": "^18.0.10",
+    "stremio-addon-sdk": "^1.6.10"
+  }
+}
